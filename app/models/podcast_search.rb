@@ -1,13 +1,10 @@
 class PodcastSearch < ApplicationRecord
-  attr_accessor :itunes_urls
   has_many :podcasts
 
   def fetch_related_podcasts
     # scrape the related podcasts for each podcast in the search
     # there will be repetitions across podcasts
     podcasts = scrape_related_podcasts
-
-    # do not include podcasts specified in the search
 
     # count the appearances of each related podcast
     podcast_to_count = podcasts.map { |pod| [pod, podcasts.count(pod)] }.to_h

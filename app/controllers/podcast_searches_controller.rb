@@ -7,13 +7,13 @@ class PodcastSearchesController < ApplicationController
 
   def create
     search = PodcastSearch.create
-    podcasts = search.podcasts.create(search_params[:itunes_urls])
+    podcasts = search.podcasts.create(search_params[:podcasts])
     redirect_to podcast_search_path(search)
   end
 
   private
 
   def search_params
-    params.permit(:itunes_urls => [:itunes_url])
+    params.permit(:podcasts => [:itunes_id, :itunes_url])
   end
 end
