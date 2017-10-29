@@ -8,8 +8,8 @@ class PodcastSearch < ApplicationRecord
 
     # do not include related podcasts already in the search
     search_ids = itunes_podcast_ids
-    podcasts = podcasts.reject { |pod| search_ids.include?(pod[:itunes_id]) }
-
+    podcasts = podcasts.reject { |pod| search_ids.include?(pod[:itunes_id].to_i) }
+    
     # count the appearances of each related podcast
     podcast_to_count = podcasts.each_with_object(Hash.new(0)) { |pod, hsh| hsh[pod] += 1 }
 
