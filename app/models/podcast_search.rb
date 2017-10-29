@@ -11,7 +11,7 @@ class PodcastSearch < ApplicationRecord
     podcasts = podcasts.reject { |pod| search_ids.include?(pod[:itunes_id]) }
 
     # count the appearances of each related podcast
-    podcast_to_count = podcasts.map { |pod| [pod, podcasts.count(pod)] }.to_h
+    podcast_to_count = podcasts.each_with_object(Hash.new(0)) { |pod, hsh| hsh[pod] += 1 }
 
     # sort podcasts by number of appearances
     podcasts
