@@ -1,4 +1,8 @@
 class PodcastSearchesController < ApplicationController
+  def index
+    render json: {}
+  end
+
   def show
     search = PodcastSearch.find(params[:id])
     related_podcasts = search.fetch_related_podcasts
