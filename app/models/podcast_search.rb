@@ -9,7 +9,7 @@ class PodcastSearch < ApplicationRecord
     # do not include related podcasts already in the search
     search_ids = itunes_podcast_ids
     podcasts = podcasts.reject { |pod| search_ids.include?(pod[:itunes_id].to_i) }
-    
+
     # count the appearances of each related podcast
     podcast_to_count = podcasts.each_with_object(Hash.new(0)) { |pod, hsh| hsh[pod] += 1 }
 
@@ -22,7 +22,7 @@ class PodcastSearch < ApplicationRecord
 
   def scrape_related_podcasts
     fetch_itunes_podcast_pages.flat_map do |page|
-      page.css('.lockup.small.podcast.audio').map do |podcast_node|
+      page.css('.center-stack .lockup.small.podcast.audio').map do |podcast_node|
         itunes_id = podcast_node.attributes['adam-id'].value
         title     = podcast_node.attributes['preview-title'].value
         image_url = podcast_node.css('div.artwork img')
